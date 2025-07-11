@@ -15,10 +15,10 @@
 NSString *const FCUUIDsOfUserDevicesDidChangeNotification = @"FCUUIDsOfUserDevicesDidChangeNotification";
 
 
-NSString *const _uuidForInstallationKey = @"fc_uuidForInstallation";
-NSString *const _uuidForDeviceKey = @"fc_uuidForDevice";
-NSString *const _uuidsOfUserDevicesKey = @"fc_uuidsOfUserDevices";
-NSString *const _uuidsOfUserDevicesToggleKey = @"fc_uuidsOfUserDevicesToggle";
+NSString *const _uuidForInstallationKey = @"SH_fc_uuidForInstallation";
+NSString *const _uuidForDeviceKey = @"SH_fc_uuidForDevice";
+NSString *const _uuidsOfUserDevicesKey = @"SH_fc_uuidsOfUserDevices";
+NSString *const _uuidsOfUserDevicesToggleKey = @"SH_fc_uuidsOfUserDevicesToggle";
 
 
 +(FCUUID *)sharedInstance
@@ -57,6 +57,7 @@ NSString *const _uuidsOfUserDevicesToggleKey = @"fc_uuidsOfUserDevicesToggle";
 
     if(!value){
         value = [self uuid];
+        //NSLog(@"+++++ self uuid:%@",value);
     }
 
     [self _setValue:value forKey:key userDefaults:userDefaults keychain:keychain service:service accessGroup:accessGroup synchronizable:synchronizable];
@@ -71,10 +72,12 @@ NSString *const _uuidsOfUserDevicesToggleKey = @"fc_uuidsOfUserDevicesToggle";
 
     if(!value && keychain ){
         value = [UICKeyChainStore stringForKey:key service:service accessGroup:accessGroup];
+        //NSLog(@"+++++ in keychain:%@",value);
     }
 
     if(!value && userDefaults ){
         value = [[NSUserDefaults standardUserDefaults] stringForKey:key];
+        //NSLog(@"+++++ in userDefaults:%@",value);
     }
 
     return value;
